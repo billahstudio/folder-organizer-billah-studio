@@ -19,8 +19,9 @@
 
 ---
 
-## 📥 Downloads
-- **Latest Standalone Executable:** [`Folder Organizer_ By Billah Studio.exe`](https://github.com/billahstudio/folder-organizer-billah-studio/raw/main/Folder%20Organizer_%20By%20Billah%20Studio.exe)
+## 📥 Downloads & Live Website
+- **🌐 Official Website:** [https://folder-organizer-by-billahstudio.vercel.app](https://folder-organizer-by-billahstudio.vercel.app)
+- **Latest Standalone Executable:** [`Folder Organizer_ By Billah Studio.exe`](https://github.com/billahstudio/folder-organizer-billah-studio/releases/download/v1.0.0/Folder.Organizer_.By.Billah.Studio.exe)
 - **Classic Batch Script:** [`Folder Organizer_ By Billah Studio.bat`](https://github.com/billahstudio/folder-organizer-billah-studio/raw/main/Folder%20Organizer_%20By%20Billah%20Studio.bat)
 
 ---
