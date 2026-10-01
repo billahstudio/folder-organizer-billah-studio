@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folder Organizer — By Billah Studio | Universal File Management</title>
+  <meta name="description" content="Universal Downloads and Folder Organizer with modern Dark UI/UX. Organize your files in 1-click. Free download for Windows.">
+  <link rel="icon" href="./app_icon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070B14;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --card-border: rgba(56, 189, 248, 0.15);
+      --primary: #0EA5E9;
+      --primary-gradient: linear-gradient(135deg, #0284C7 0%, #4F46E5 100%);
+      --accent: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --success: #10B981;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 20% 15%, rgba(14, 165, 233, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px;
+      color: var(--text-main);
+      font-family: var(--font);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAV */
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 11, 20, 0.75);
+    }
+
+    .nav-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+    }
+
+    .brand-info h1 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: 0.5px;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      display: block;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-ghost {
+      background: rgba(30, 41, 59, 0.6);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(51, 65, 85, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      color: white;
+      box-shadow: 0 4px 18px rgba(14, 165, 233, 0.4);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.55);
+      transform: translateY(-2px);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 6vw, 62px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #FFFFFF 30%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .btn-lg {
+      padding: 16px 32px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+
+    .download-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .download-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* MOCKUP UI */
+    .app-preview-card {
+      margin: 40px auto 80px;
+      max-width: 880px;
+      background: #0A0F1D;
+      border: 1.5px solid #1E293B;
+      border-radius: 18px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(14, 165, 233, 0.15);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .app-header {
+      background: #0F172A;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1E293B;
+    }
+
+    .app-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .app-icon-mini {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .app-window-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .win-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .win-close { background: #EF4444; }
+    .win-min { background: #F59E0B; }
+    .win-max { background: #10B981; }
+
+    .app-body {
+      padding: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: #111827;
+      border: 1px solid #1F2937;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .stat-card h4 {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-card .val {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .stat-card .val.purple { color: #A78BFA; }
+    .stat-card .val.green { color: #34D399; font-size: 16px; margin-top: 8px; }
+
+    .terminal-box {
+      background: #060913;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #CBD5E1;
+      height: 160px;
+      overflow-y: auto;
+    }
+
+    .log-info { color: #38BDF8; }
+    .log-success { color: #34D399; }
+    .log-dim { color: #64748B; }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 60px 0 100px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 14.5px;
+    }
+
+    /* THANKS BILLAH BANNER */
+    .thanks-section {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(99, 102, 241, 0.15) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 20px;
+      padding: 48px;
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thanks-section h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .thanks-section p {
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 24px;
+      font-size: 15px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 32px 0;
+      text-align: center;
+      color: #64748B;
+      font-size: 13.5px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .cta-group { flex-direction: column; }
+      .btn-lg { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="container nav-wrap">
+      <a href="#" class="brand">
+        <div class="brand-icon">📁</div>
+        <div class="brand-info">
+          <h1>FOLDER ORGANIZER</h1>
+          <span>BY BILLAH STUDIO</span>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <a href="https://github.com/billahstudio/folder-organizer-billah-studio" target="_blank" class="btn btn-ghost">
+          <span>⭐</span> GitHub
+        </a>
+        <a href="https://github.com/billahstudio/folder-organizer-billah-studio/releases/download/v1.0.0/Folder.Organizer_.By.Billah.Studio.exe" class="btn btn-primary" download>
+          <span>📥</span> Download .EXE
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="container">
+    <section class="hero">
+      <div class="badge">
+        <span>⚡</span> NATIVE WINDOWS APP • MODERN DARK UI/UX
+      </div>
+      <h1 class="hero-title">
+        Clean &amp; Organize Any Folder<br>
+        <span>In A Single Click</span>
+      </h1>
+      <p class="hero-desc">
+        Stop wasting hours sifting through messy Downloads and cluttered directories. Universal Folder Organizer sorts all your files into curated categories automatically.
+      </p>
+
+      <div class="cta-group">
+        <a href="https://github.com/billahstudio/folder-organizer-billah-studio/releases/download/v1.0.0/Folder.Organizer_.By.Billah.Studio.exe" class="btn btn-primary btn-lg" download>
+          <span>🚀</span> Download for Windows (.exe)
+        </a>
+        <a href="https://github.com/billahstudio/folder-organizer-billah-studio/raw/main/Folder%20Organizer_%20By%20Billah%20Studio.bat" class="btn btn-ghost btn-lg" download>
+          <span>📄</span> Download Batch Script (.bat)
+        </a>
+      </div>
+
+      <div class="download-meta">
+        <span>✅ 100% Free &amp; Open Source</span>
+        <span>🛡️ Safe Overwrite Protection</span>
+        <span>⚡ Zero Dependencies (Native WPF)</span>
+      </div>
+
+      <!-- APP PREVIEW WINDOW -->
+      <div class="app-preview-card">
+        <div class="app-header">
+          <div class="app-title-group">
+            <div class="app-icon-mini">📁</div>
+            <div>
+              <strong style="font-size: 13.5px; color: #F8FAFC;">FOLDER ORGANIZER PRO</strong>
+              <span style="font-size: 11px; color: #38BDF8; margin-left: 8px;">DARK EDITION</span>
+            </div>
+          </div>
+          <div class="app-window-btns">
+            <div class="win-btn win-min"></div>
+            <div class="win-btn win-max"></div>
+            <div class="win-btn win-close"></div>
+          </div>
+        </div>
+
+        <div class="app-body">
+          <div class="grid-3">
+            <div class="stat-card">
+              <h4>LOOSE FILES FOUND</h4>
+              <div class="val">48</div>
+            </div>
+            <div class="stat-card">
+              <h4>CATEGORIES MATCHED</h4>
+              <div class="val purple">9</div>
+            </div>
+            <div class="stat-card">
+              <h4>STATUS</h4>
+              <div class="val green">Ready to Organize</div>
+            </div>
+          </div>
+
+          <div class="terminal-box">
+            <div class="log-dim">[15:52:10] [READY] Selected: C:\Users\ASUS\Downloads</div>
+            <div class="log-info">[15:52:11] [SCAN] Found 48 loose file(s) across 9 category folder(s).</div>
+            <div class="log-success">[15:52:12] [MOVED] illustration.ai ➔ Adobe\Illustrator (AI-EPS)\</div>
+            <div class="log-success">[15:52:12] [MOVED] project_report.docx ➔ MS Office\Word\</div>
+            <div class="log-success">[15:52:13] [MOVED] vacation_photo.raw ➔ Photos\RAW Photos\</div>
+            <div class="log-success">[15:52:13] [MOVED] soundtrack.flac ➔ Audio\</div>
+            <div class="log-info">[15:52:14] [COMPLETED] Successfully organized 48 file(s)!</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>13 Smart Categories</h3>
+          <p>Organizes Adobe Suite, MS Office, Documents, RAW Photos, Videos, Compressed Zips, Fonts, 3D CAD, Code, and more.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Safe &amp; Non-Destructive</h3>
+          <p>Never overwrites existing files. Automatically renames duplicates safely (e.g. <code>report (1).pdf</code>) to protect your work.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Standalone &amp; Instant</h3>
+          <p>Runs natively on Windows 10 &amp; 11 without needing Python, Node.js, or complex runtime installations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAY THANKS SECTION -->
+    <section class="thanks-section">
+      <h2>Don't Forget to say Thanks Billah ❤️</h2>
+      <p>Universal Folder Organizer was created to make digital workspace management effortless. If you love this project, show your support!</p>
+      <a href="https://www.basharbillah.com" target="_blank" class="btn btn-primary btn-lg">
+        <span>🌐</span> Visit basharbillah.com
+      </a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Made with ❤️ by <a href="https://www.basharbillah.com" target="_blank">Billah Studio</a> • Released under the MIT License.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #475569;">
+        <a href="https://github.com/billahstudio/folder-organizer-billah-studio" target="_blank">GitHub Repository</a> • 
+        <a href="https://github.com/billahstudio/folder-organizer-billah-studio/releases/tag/v1.0.0" target="_blank">Latest Releases</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
